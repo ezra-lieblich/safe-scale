@@ -3,12 +3,16 @@ import (
 	"github.com/cloudfoundry/cli/plugin"
 	"fmt"
 	"CLI-Hello/git-files/cf/errors"
+	"net/http"
+	"time"
 )
 
 type SafeScaler struct{
 	blue	*AppProp
 	green	*AppProp
 	green_routes []Route
+	blue_routes []Route
+	trans_endpoint string
 }
 type AppProp struct {
 	name	string
@@ -29,14 +33,15 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 	var err error
 	if c.blue, err = c.getApp(cliConnection, args[1]); err != nil{
 		fmt.Println(err)
-
 		return
 	}
+	c.trans_endpoint = "htttp://endpoint provided"
 	if c.green, err = c.getApp(cliConnection, args[2]); err !=nil{
 		fmt.Println(err)
 		return
 	}
-	c.green_routes = c.green.routes //need to keep original track of original routes so we can delete them after
+	c.green_routes = c.green.routes //need to keep track of original routes so we can restart to default if error occurs
+	c.blue_routes = c.blue.routes
 	for i, _ := range c.blue.routes{
 		if bad:=c.addMap(cliConnection,c.green, c.blue.routes[i]); bad!=nil{
 			fmt.Println(bad)
@@ -47,7 +52,7 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 	for _, value := range c.blue.routes{	//unmap everything from the blue app
 		if err :=c.removeMap(cliConnection, c.blue, value); err!=nil{
 			fmt.Println(err)
-			return 
+			return
 		}
 	}
 	//need to add monitoring here!!!!
@@ -55,9 +60,15 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 	Need method to reset apps if it times out or fails
 	check health of new app after. If they are not running, reset. have another endpoint to check if new app is healthy
 	 */
+	if err := c.monitorTransactions(c.trans_endpoint); err!= nil{
+		fmt.Println(err)
+		c.restart(cliConnection)
+		return 
+	}
 	for _, ele := range c.green_routes{
 		if err :=c.removeMap(cliConnection, c.green, ele); err!=nil{ //unmap original routes from green app
 			fmt.Println(err)
+			c.restart(cliConnection)
 			return
 		}
 	}
@@ -140,6 +151,22 @@ func(c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, 
 
 }
 
+func(c *SafeScaler) monitorTransactions(endpoint string)error{
+	base := time.Now()
+	current:= time.Since(base).Seconds()
+	for current<120{
+		result,err := http.Get(endpoint)
+		if err !=nil{
+			return err
+		}
+		if result.StatusCode == 204{ //no content so there are no more transactions
+			return
+		}
+		current= time.Since(base).Seconds()
+	}
+	return errors.New("The request timed out")
+}
+
 func(c *SafeScaler) deleteApp(cliConnection plugin.CliConnection, app *AppProp)error{
 	if _, err:=cliConnection.CliCommand("delete", app.name, "-f"); err!=nil{
 		return err
@@ -155,6 +182,15 @@ func(c *SafeScaler) renameApp(cliConnection plugin.CliConnection, app *AppProp, 
 	}
 	app.name= name
 	return nil
+}
+
+func(c *SafeScaler) restart(cliConnection plugin.CliConnection){ //restart has to map everything back from blue and remove blue routes from green
+	fmt.Println("restarting both apps to original state")
+	for _,val :=range c.blue_routes{
+		c.addMap(cliConnection, c.blue, val)
+		c.removeMap(cliConnection, c.green,val)
+	}
+
 }
 
 func main() {
