@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6bc42a5a-b318-4cce-9465-dac9b8091f1f" name="Default" comment="" />
+    <list default="true" id="6bc42a5a-b318-4cce-9465-dac9b8091f1f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale" afterPath="$PROJECT_DIR$/safe_scale" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/safe_scale.iml" afterPath="$PROJECT_DIR$/.idea/safe_scale.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale.go" afterPath="$PROJECT_DIR$/safe_scale.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale_test.go" afterPath="$PROJECT_DIR$/safe_scale_test.go" />
+    </list>
     <ignored path="safe_scale.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -13,6 +19,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/safe_scale$safe_scale_suite_test_go.coverage" NAME="safe_scale_suite_test.go Coverage Results" MODIFIED="1467745391792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -22,17 +31,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="safe_scale.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="safe_scale.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/safe_scale.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-              <folding>
-                <marker date="1467742611000" expanded="true" signature="376:1805" ph="{...}" />
-                <marker date="1467742611000" expanded="true" signature="1864:2327" ph="{...}" />
-                <marker date="1467742611000" expanded="true" signature="1895:2325" ph="{...}" />
-                <marker date="1467742611000" expanded="true" signature="2029:2073" ph="{...}" />
-              </folding>
+            <state relative-caret-position="360">
+              <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -40,52 +44,27 @@
       <file leaf-file-name="safe_scale_test.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="89" column="103" selection-start-line="89" selection-start-column="103" selection-end-line="89" selection-end-column="103" />
-              <folding>
-                <marker date="1467742685000" expanded="true" signature="226:6539" ph="{...}" />
-                <marker date="1467742685000" expanded="true" signature="489:2347" ph="{...}" />
-                <marker date="1467742685000" expanded="true" signature="524:743" ph="{...}" />
-                <marker date="1467742685000" expanded="true" signature="784:1044" ph="{...}" />
-                <marker date="1467742685000" expanded="true" signature="1082:1298" ph="{...}" />
-                <marker date="1467742685000" expanded="true" signature="1335:1775" ph="{...}" />
-                <marker date="1467742685000" expanded="true" signature="1822:2343" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.go" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/net/http/httptest/server.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-540">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="135">
+              <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="host.go" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/net/http/cgi/host.go">
+      <file leaf-file-name="safe_scale_suite_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="httputil.go" pinned="false" current-in-tab="true">
-        <entry file="file:///usr/local/go/src/net/http/httputil/httputil.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="modificationStamps">
@@ -104,8 +83,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/safe_scale.go" />
         <option value="$PROJECT_DIR$/safe_scale_test.go" />
+        <option value="$PROJECT_DIR$/safe_scale.go" />
       </list>
     </option>
   </component>
@@ -131,6 +110,9 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -147,8 +129,20 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="safe_scale" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="safe_scale" />
@@ -227,8 +221,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,8 +229,25 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.libraries.notification.had.been.shown" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.safe_scale_suite_test.go">
+    <configuration default="false" name="safe_scale_suite_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="safe_scale" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/safe_scale_suite_test.go" />
+      <method />
+    </configuration>
+    <configuration default="false" name="safe_scale_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="safe_scale" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/safe_scale_test.go" />
+      <method />
+    </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -473,6 +482,7 @@
       <setting name="cmdLine" value="run-app" />
       <setting name="passParentEnv" value="true" />
       <setting name="launchBrowser" value="true" />
+      <setting name="depsClasspath" value="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <method />
     </configuration>
@@ -638,6 +648,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -653,6 +669,16 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Go Test.safe_scale_suite_test.go" />
+      <item index="1" class="java.lang.String" itemvalue="Go Test.safe_scale_test.go" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Go Test.safe_scale_suite_test.go" />
+        <item index="1" class="java.lang.String" itemvalue="Go Test.safe_scale_test.go" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -665,16 +691,28 @@
       <option name="presentableId" value="Default" />
       <updated>1467725228951</updated>
       <workItem from="1467725230903" duration="1426000" />
-      <workItem from="1467740980161" duration="1348000" />
+      <workItem from="1467740980161" duration="1520000" />
+      <workItem from="1467744136013" duration="1694000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="safe_scale_suite_test_go - 2016.07.05 at 14h 42m 31s.xml">
+      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="safe_scale_suite_test_go - 2016.07.05 at 15h 03m 14s.xml">
+      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="safe_scale_test_go - 2016.07.05 at 15h 03m 04s.xml">
+      <configuration name="safe_scale_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2774000" />
+    <option name="totallyTimeSpent" value="4640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="269" y="23" width="1053" height="739" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -683,11 +721,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937685" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18991098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18991098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -706,20 +745,17 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/safe_scale.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1467742611000" expanded="true" signature="376:1805" ph="{...}" />
-            <marker date="1467742611000" expanded="true" signature="1864:2327" ph="{...}" />
-            <marker date="1467742611000" expanded="true" signature="1895:2325" ph="{...}" />
-            <marker date="1467742611000" expanded="true" signature="2029:2073" ph="{...}" />
-          </folding>
+        <state relative-caret-position="420">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -727,15 +763,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1467742685000" expanded="true" signature="226:6539" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="489:2347" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="524:743" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="784:1044" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="1082:1298" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="1335:1775" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="1822:2343" ph="{...}" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/net/http/httputil/httputil.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -743,35 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1560">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding>
-            <marker date="1467742611000" expanded="true" signature="376:1805" ph="{...}" />
-            <marker date="1467742611000" expanded="true" signature="1864:2327" ph="{...}" />
-            <marker date="1467742611000" expanded="true" signature="1895:2325" ph="{...}" />
-            <marker date="1467742611000" expanded="true" signature="2029:2073" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="89" column="103" selection-start-line="89" selection-start-column="103" selection-end-line="89" selection-end-column="103" />
-          <folding>
-            <marker date="1467742685000" expanded="true" signature="226:6539" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="489:2347" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="524:743" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="784:1044" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="1082:1298" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="1335:1775" ph="{...}" />
-            <marker date="1467742685000" expanded="true" signature="1822:2343" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -793,8 +816,32 @@
     </entry>
     <entry file="file:///usr/local/go/src/net/http/httputil/httputil.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="450">
+          <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
           <folding />
         </state>
       </provider>

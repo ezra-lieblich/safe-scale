@@ -38,14 +38,16 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 	}
 	c.green_routes = c.green.routes //need to keep original track of original routes so we can delete them after
 	for i, _ := range c.blue.routes{
-		if bad:=c.addMap(cliConnection, c.blue.routes[i]); bad!=nil{
+		if bad:=c.addMap(cliConnection,c.green, c.blue.routes[i]); bad!=nil{
 			fmt.Println(bad)
+			return
 		}
 	}
 
 	for _, value := range c.blue.routes{	//unmap everything from the blue app
 		if err :=c.removeMap(cliConnection, c.blue, value); err!=nil{
 			fmt.Println(err)
+			return 
 		}
 	}
 	//need to add monitoring here!!!!
@@ -56,13 +58,16 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 	for _, ele := range c.green_routes{
 		if err :=c.removeMap(cliConnection, c.green, ele); err!=nil{ //unmap original routes from green app
 			fmt.Println(err)
+			return
 		}
 	}
 	if err:= c.deleteApp(cliConnection, c.blue); err!=nil{ //delete blue app
 		fmt.Println(err)
+		return
 	}
 	if err:= c.renameApp(cliConnection, c.green, c.blue.name); err!=nil{ //rename green app after blue app
 		fmt.Println(err)
+		return 
 	}
 
 
@@ -114,8 +119,8 @@ func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, name string)(*Ap
 	return properties, nil
 }
 
-func(c *SafeScaler) addMap(cliConnection plugin.CliConnection, route Route)error{
-	if _, err :=cliConnection.CliCommand("map-route", route.domain, "--hostname", route.host); err!=nil{
+func(c *SafeScaler) addMap(cliConnection plugin.CliConnection, app *AppProp, route Route)error{
+	if _, err :=cliConnection.CliCommand("map-route",app.name, route.domain, "--hostname", route.host); err!=nil{
 		return err
 	}
 	c.green.routes= append(c.green.routes, route)

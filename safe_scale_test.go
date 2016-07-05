@@ -84,7 +84,7 @@ var _ = ginkgo.Describe("safescale", func() {
 								"cfapps.io","--hostname", "moved")
 			connection.CliCommandReturns([]string{"it worked"},nil)
 			moved := Route{host: "moved", domain:"cfapps.io"}
-			err := ExamplePlugin.addMap(connection, moved)
+			err := ExamplePlugin.addMap(connection,ExamplePlugin.green, moved)
 			gomega.Expect(err).To(gomega.BeNil())
 			gomega.Expect(ExamplePlugin.green.routes).To(gomega.Equal([]Route{{host: "temp", domain: "cfapps.io"},
 								{host: "moved", domain: "cfapps.io"}}))
@@ -94,7 +94,7 @@ var _ = ginkgo.Describe("safescale", func() {
 				"cfapps.io","--hostname", "fake") //CL args have wrong host name
 			connection.CliCommandReturns(nil,errors.New("could not map route"))
 			bad_route := Route{host: "fake", domain: "cfapps.io"}
-			err:= ExamplePlugin.addMap(connection, bad_route)
+			err:= ExamplePlugin.addMap(connection, ExamplePlugin.green, bad_route)
 			gomega.Expect(err.Error()).To(gomega.Equal("could not map route"))
 			gomega.Expect(ExamplePlugin.green.routes).To(gomega.Equal([]Route{{host: "temp", domain:"cfapps.io"}}))
 		})
