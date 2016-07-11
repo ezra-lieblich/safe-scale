@@ -69,6 +69,36 @@ var _ = ginkgo.Describe("safescale", func() {
 			gomega.Expect(result.routes).To(gomega.Equal([]Route{
 				{host: "foo", domain: "cfapps.io"}, {host: "bar", domain: "cfapps.io"}}))
 		})
+		ginkgo.It("has no services", func() {
+			app := plugin_models.GetAppModel{}
+			connection.GetAppReturns(app, nil)
+			result, _ = ExamplePlugin.getApp(connection, "")
+			gomega.Expect(result.services).To(gomega.Equal([]string{}))
+		})
+		ginkgo.It("has multiple services", func() {
+			services:= []plugin_models.GetApp_ServiceSummary{
+				{Name: "foo"},
+				{Name: "bar"},
+			}
+			app:= plugin_models.GetAppModel{Services: services}
+			connection.GetAppReturns(app, nil)
+			result, _ = ExamplePlugin.getApp(connection, "")
+			gomega.Expect(result.services).To(gomega.Equal([]string{"foo", "bar"}))
+		})
+	})
+	ginkgo.Context("get space", func() {
+		ginkgo.It("unsucessfully", func() {
+			connection.GetCurrentSpaceReturns(plugin_models.Space{}, errors.New("there is no space"))
+			err := ExamplePlugin.getSpace(connection)
+			gomega.Expect(err.Error()).To(gomega.Equal("there is no space"))
+		})
+		ginkgo.It("sucessfully", func() {
+			space_field:= plugin_models.SpaceFields{Name: "sandbox"}
+			connection.GetCurrentSpaceReturns(plugin_models.Space{space_field}, nil)
+			err := ExamplePlugin.getSpace(connection)
+			gomega.Expect(err).To(gomega.BeNil())
+			gomega.Expect(ExamplePlugin.space).To(gomega.Equal("sandbox"))
+		})
 	})
 	ginkgo.Context("add mappings", func() {
 		ginkgo.BeforeEach(func(){
@@ -128,26 +158,6 @@ var _ = ginkgo.Describe("safescale", func() {
 										{host: "bar", domain: "cfapps.io"}}))
 		})
 
-	})
-	ginkgo.Context("delete app", func(){
-		ginkgo.BeforeEach(func(){
-			app := &AppProp{name: 	"foo", alive: true}
-			result = app
-		})
-		ginkgo.It("sucessfully", func(){
-			connection.CliCommand("delete", result.name, "-f")
-			connection.CliCommandReturns([]string{"it worked"}, nil)
-			err:= ExamplePlugin.deleteApp(connection, result)
-			gomega.Expect(err).To(gomega.BeNil())
-			gomega.Expect(result.alive).To(gomega.Equal(false))
-		})
-		ginkgo.It("unsucessfully", func() {
-			connection.CliCommand("delete", "fake-app", "-f") //delete nonexistent app
-			connection.CliCommandReturns(nil, errors.New("could not delete app"))
-			err:= ExamplePlugin.deleteApp(connection, result)
-			gomega.Expect(err.Error()).To(gomega.Equal("could not delete app"))
-			gomega.Expect(result.alive).To(gomega.Equal(true))
-		})
 	})
 	ginkgo.Context("renames an app", func(){
 		ginkgo.BeforeEach(func(){
