@@ -43,13 +43,13 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 		fmt.Println(err)
 		return
 	}
+	if healthy := c.healthTest(); !healthy {
+		fmt.Println("new app is not healthy. Can not continue blue-green deployment. Routes from old app will not be transferred to new app")
+		return
+	}
 	if err = c.mapping(cliConnection); err != nil{
 		fmt.Println(err)
 		return
-	}
-	if healthy := c.healthTest(); !healthy {
-		fmt.Println("new app is not healthy. Need to restart app")
-		//c.restart
 	}
 	if err = c.unmapping(cliConnection); err!= nil{
 		fmt.Println(err)
@@ -153,7 +153,7 @@ func(c *SafeScaler) healthTest() bool{ //tests new apps health
 		return true
 	}
 	result,err := http.Get("http://"+c.green.routes[0].host+"."+c.green.routes[0].domain+c.test) //test endpoint
-	if result.StatusCode != 200 || err!=nil { //not ok or error so test failed
+	if result.StatusCode != 200 || err!=nil { //not ok or error so test failed 300 multiple things going on
 		return false
 	}
 	return true
@@ -162,19 +162,19 @@ func(c *SafeScaler) healthTest() bool{ //tests new apps health
 func(c *SafeScaler) monitorTransactions(cliConnection plugin.CliConnection)error{
 	trans_endpoint := "http://"+c.blue.routes[0].host+"."+c.blue.routes[0].domain+c.trans
 	base := time.Now()
-	current:= time.Since(base).Seconds()
+	current:= time.Since(base).Seconds() //web requests are stateless. shouldnt be dependent on past
 	for current<120{
 		time.Sleep(3*time.Second)
 		result,err := http.Get(trans_endpoint)
 		if err !=nil{
 			return err
 		}
-		if result.StatusCode == 204{ //no content so there are no more transactions
+		if result.StatusCode == 204{ //no content so there are no more transactions have parameter that has utc time
 			return nil
 		}
 		current= time.Since(base).Seconds()
 	}
-	return errors.New("The request timed out")
+	return errors.New("The request timed out. Can not safely shut down the old app.")
 }
 
 
@@ -199,24 +199,14 @@ func (c *SafeScaler) getArgs(args []string)error{
 	if len(args) == 1{
 		return errors.New("Did not specify an app")
 	}
-
-	if len(args) == 2 {
-		c.original_name = args[1]
-		return nil
-	}
-	f := flag.NewFlagSet("flag", flag.ExitOnError)
-	f.String("inst", "1", "the number of instances for new app")
-	f.String("trans", "", "endpoint path to monitor transactions")
-	f.String("test", "", "optional path to test new app deployed")
-	flags := []string{}
-	visit := func(a *flag.Flag) {
-		flags = append(flags, a.Value.String())
-	}
-	f.VisitAll(visit) //note visits all flags in alphabetic order
-	f.Parse(args[2:]) //first two args are the command and the app name
-	c.inst = flags[0]
-	c.test = flags[1]
-	c.trans = flags[2]
+	c.original_name = args[1]
+	inst_ptr:= flag.String("inst", "1", "the number of instances for new app")
+	trans_ptr:=flag.String("trans", "", "endpoint path to monitor transactions")
+	test_ptr:=flag.String("test", "", "optional path to test new app deployed")
+	flag.Parse()
+	c.inst = *inst_ptr
+	c.test = *test_ptr
+	c.trans = *trans_ptr
 	return nil
 }
 
@@ -247,6 +237,7 @@ func(c *SafeScaler) pushApp(cliConnection plugin.CliConnection) error{
 	}
 	c.green.name = new_name
 	c.green.routes= append(c.green.routes, Route{host: new_name, domain: c.blue.routes[0].domain})
+	c.green.alive= true
 	return nil
 
 }
@@ -275,7 +266,7 @@ func(c *SafeScaler) mapping(cliConnection plugin.CliConnection) error{ //creates
 }
 
 func(c *SafeScaler) unmapping(cliConnection plugin.CliConnection) error{
-	for _, val := range c.blue.routes[:len(c.blue.routes)]{ //unmap all routes from blue with exception of temp route
+	for _, val := range c.blue_routes{ //unmap all routes from blue with exception of temp route
 		if err:= c.removeMap(cliConnection, c.blue, val); err!=nil{
 			return err
 		}

@@ -6,6 +6,7 @@ import (
 	"github.com/onsi/ginkgo"
 	"github.com/onsi/gomega"
 	"errors"
+	"os"
 )
 var _ = ginkgo.Describe("safescale", func() {
 	var(
@@ -17,6 +18,30 @@ var _ = ginkgo.Describe("safescale", func() {
 	ginkgo.BeforeEach(func() {
 		connection = &pluginfakes.FakeCliConnection{}
 		ExamplePlugin = &SafeScaler{}
+	})
+	ginkgo.Context("get arguments", func() {
+		ginkgo.It("when there are insufficient amount of arguments", func() {
+			err:= ExamplePlugin.getArgs([]string{"safe-scale"})
+			gomega.Expect(err.Error()).To(gomega.Equal("Did not specify an app"))
+		})
+		ginkgo.It("set to default values", func() {
+			err:= ExamplePlugin.getArgs([]string{"safe-scale", "test-app"})
+			gomega.Expect(err).To(gomega.BeNil())
+			gomega.Expect(ExamplePlugin.original_name).To(gomega.Equal("test-app"))
+			gomega.Expect(ExamplePlugin.inst).To(gomega.Equal("1"))
+			gomega.Expect(ExamplePlugin.trans).To(gomega.Equal(""))
+			gomega.Expect(ExamplePlugin.test).To(gomega.Equal(""))
+		})
+		ginkgo.It("all flags set sucessfully", func(){
+			//args := []string{"safe-scale", "foo", "--inst", "4"}
+			os.Args =[]string{"safe-scale", "--inst", "4"}
+			err:= ExamplePlugin.getArgs([]string{"safe-scale", "--inst", "4"})
+			gomega.Expect(err).To(gomega.BeNil())
+			gomega.Expect(ExamplePlugin.original_name).To(gomega.Equal("foo"))
+			gomega.Expect(ExamplePlugin.inst).To(gomega.Equal("5"))
+			gomega.Expect(ExamplePlugin.trans).To(gomega.Equal("/trans"))
+			gomega.Expect(ExamplePlugin.test).To(gomega.Equal("/test"))
+		})
 	})
 	ginkgo.Context("app properties", func() {
 		ginkgo.It("app  exists", func(){
