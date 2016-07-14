@@ -30,11 +30,9 @@ Flags
 "-test":        "endpoint to test if new app is healthy"
 "-timeout":        "time in seconds to monitor transactions"
 
-Note if you don’t provide an endpoint for monitoring transactions or checking health the plugin will just continue regular blue-green deployment
-
+Note if you don’t provide an endpoint for monitoring transactions or checking health the plugin will just continue 
+regular blue-green deployment
 # Installation
 
-go get https://github.com/ezra-lieblich/safe-scale
-cf install-plugin safe_scale
 go get https://github.com/ezra-lieblich/safe-scale
 cf install-plugin safe_scale
