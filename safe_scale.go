@@ -2,11 +2,10 @@ package main
 import (
 	"github.com/cloudfoundry/cli/plugin"
 	"fmt"
-	"CLI-Hello/git-files/cf/errors"
 	"net/http"
 	"time"
 	"flag"
-	//"os"
+	"errors"
 )
 
 type SafeScaler struct{
@@ -18,6 +17,7 @@ type SafeScaler struct{
 	trans string
 	test string
 	inst string
+	timeout int
 	original_name string
 	space string
 }
@@ -40,11 +40,14 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 		fmt.Println(err)
 		return
 	}
+	c.green = &AppProp{name:"", routes: []Route{}, alive: false}
+	c.blue_routes= c.blue.routes
 	if err = c.createNewApp(cliConnection); err!=nil{
 		fmt.Println(err)
 		return
 	}
-	if healthy := c.healthTest(); !healthy {
+	client:= http.DefaultClient
+	if healthy := c.healthTest(client); !healthy {
 		fmt.Println("new app is not healthy. Can not continue blue-green deployment. Routes from old app will not be transferred to new app")
 		return
 	}
@@ -56,7 +59,7 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 		fmt.Println(err)
 		return
 	}
-	if err = c.monitorTransactions(cliConnection); err!= nil{
+	if err = c.monitorTransactions(client); err!= nil{
 		fmt.Println(err)
 		return
 	}
@@ -148,27 +151,27 @@ func(c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, 
 
 }
 
-func(c *SafeScaler) healthTest() bool{ //tests new apps health
+func(c *SafeScaler) healthTest(client *http.Client) bool{ //tests new apps health
 	if c.test == ""{ //no test so just continue with deployment
 		return true
 	}
-	result,err := http.Get("http://"+c.green.routes[0].host+"."+c.green.routes[0].domain+c.test) //test endpoint
+	endpoint:= "https://"+c.green.routes[0].host+"."+c.green.routes[0].domain+c.test
+	result,err := client.Get(endpoint) //test endpoint
 	if result.StatusCode != 200 || err!=nil { //not ok or error so test failed 300 multiple things going on
 		return false
 	}
 	return true
 
 }
-func(c *SafeScaler) monitorTransactions(cliConnection plugin.CliConnection)error{
+func(c *SafeScaler) monitorTransactions(client *http.Client)error{
 	if c.trans == ""{ //no endpoint so just regular blue green deployment
 		return nil
 	}
-	trans_endpoint := "http://"+c.blue.routes[0].host+"."+c.blue.routes[0].domain+c.trans
+	trans_endpoint := "https://"+c.blue.routes[0].host+"."+c.blue.routes[0].domain+c.trans
 	base := time.Now()
 	current:= time.Since(base).Seconds() //web requests are stateless. shouldnt be dependent on past
-	for current<120{
-		time.Sleep(3*time.Second)
-		result,err := http.Get(trans_endpoint)
+	for current<float64 (c.timeout){
+		result,err := client.Get(trans_endpoint)
 		if err !=nil{
 			return err
 		}
@@ -178,6 +181,7 @@ func(c *SafeScaler) monitorTransactions(cliConnection plugin.CliConnection)error
 		if result.StatusCode != 200{
 			return errors.New("Status code is not okay. Check to make sure the app is healthy")
 		}
+		time.Sleep(3*time.Second)
 		current= time.Since(base).Seconds()
 	}
 	return errors.New("The request timed out. Can not safely shut down the old app.")
@@ -190,12 +194,14 @@ func (c *SafeScaler) getArgs(args []string)error{
 	c.original_name = args[1]
 	f:=flag.NewFlagSet("f", flag.ContinueOnError)
 	inst_ptr:= f.String("inst", "1", "the number of instances for new app")
-	trans_ptr:=f.String("trans", "", "endpoint path to monitor transactions")
-	test_ptr:=f.String("test", "", "optional path to test new app deployed")
+	trans_ptr:= f.String("trans", "", "endpoint path to monitor transactions")
+	test_ptr:= f.String("test", "", "endpoint path to test new app deployed")
+	timeout_ptr:= f.Int("timeout", 120, "time in seconds before transaction monitoring times out")
 	f.Parse(args[2:])
 	c.inst = *inst_ptr
 	c.test = *test_ptr
 	c.trans = *trans_ptr
+	c.timeout = *timeout_ptr
 	return nil
 }
 
@@ -290,4 +296,3 @@ func(c *SafeScaler) powerDown(cliConnection plugin.CliConnection) error{
 func main() {
 	plugin.Start(new(SafeScaler))
 }
-

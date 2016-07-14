@@ -1,11 +1,12 @@
 package main
 
-import (
+import (//HTTP versus HTTPS
 	"github.com/cloudfoundry/cli/plugin/models"
 	"github.com/cloudfoundry/cli/plugin/pluginfakes"
 	."github.com/onsi/ginkgo"
 	."github.com/onsi/gomega"
 	"errors"
+	"github.com/nicholasf/fakepoint"
 )
 var _ = Describe("safescale", func() {
 	var(
@@ -30,15 +31,17 @@ var _ = Describe("safescale", func() {
 			Expect(ExamplePlugin.inst).To(Equal("1"))
 			Expect(ExamplePlugin.trans).To(Equal(""))
 			Expect(ExamplePlugin.test).To(Equal(""))
+			Expect(ExamplePlugin.timeout).To(Equal(120))
 		})
 		It("should set all flags sucessfully", func(){
-			args := []string{"safe-scale", "foo", "--inst", "4", "--test", "/test", "-trans", "/trans"}
+			args := []string{"safe-scale", "foo", "--inst", "4", "--test", "/test", "-trans", "/trans", "--timeout", "40"}
 			err:= ExamplePlugin.getArgs(args)
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.original_name).To(Equal("foo"))
 			Expect(ExamplePlugin.inst).To(Equal("4"))
 			Expect(ExamplePlugin.trans).To(Equal("/trans"))
 			Expect(ExamplePlugin.test).To(Equal("/test"))
+			Expect(ExamplePlugin.timeout).To(Equal(40))
 		})
 		It("should set some flags and leave others as default", func() {
 			args := []string{"safe-scale", "bar", "--trans", "/trans", "-test", "/test"}
@@ -160,6 +163,54 @@ var _ = Describe("safescale", func() {
 			err := ExamplePlugin.getSpace(connection)
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.space).To(Equal("sandbox"))
+		})
+	})
+	Describe("monitoring health", func() {
+		BeforeEach(func() {
+			ExamplePlugin.green = &AppProp{routes: []Route{{domain: "cfapps.io", host: "foo"}}}
+			ExamplePlugin.test = "/test"
+		})
+		It("should return true if the app is healthy", func() {
+			maker:= fakepoint.NewFakepointMaker()
+			maker.NewGet("https://foo.cfapps.io/test",200)
+			client:=maker.Client()
+			result:= ExamplePlugin.healthTest(client)
+			Expect(result).To(BeTrue())
+		})
+		It("should return false if the app is not healthy", func() {
+			maker:= fakepoint.NewFakepointMaker()
+			maker.NewGet("https://foo.cfapps.io/test",400)
+			client:= maker.Client()
+			result:= ExamplePlugin.healthTest(client)
+			Expect(result).To(BeFalse())
+		})
+	})
+	Describe("monitoring transactions", func() {
+		BeforeEach(func() {
+			ExamplePlugin.blue = &AppProp{routes: []Route{{domain: "cfapps.io", host: "bar"}}}
+			ExamplePlugin.trans = "/trans"
+			ExamplePlugin.timeout = 4
+		})
+		It("should fail when it times out", func() {
+			maker:= fakepoint.NewFakepointMaker()
+			maker.NewGet("https://bar.cfapps.io/trans", 200).Duplicate(100)
+			client:= maker.Client()
+			result:= ExamplePlugin.monitorTransactions(client)
+			Expect(result.Error()).To(Equal("The request timed out. Can not safely shut down the old app."))
+		})
+		It("should pass when transactions are empty initially", func() {
+			maker:= fakepoint.NewFakepointMaker()
+			maker.NewGet("https://bar.cfapps.io/trans", 204).Duplicate(100)
+			client:= maker.Client()
+			result:= ExamplePlugin.monitorTransactions(client)
+			Expect(result).To(BeNil())
+		})
+		It("should fail when get request is bad", func() {
+			maker:= fakepoint.NewFakepointMaker()
+			maker.NewGet("https://bar.cfapps.io/trans", 200) // will go from 200 to 404 after 1 call
+			client:= maker.Client()
+			result:= ExamplePlugin.monitorTransactions(client)
+			Expect(result.Error()).To(Equal("Status code is not okay. Check to make sure the app is healthy"))
 		})
 	})
 	Describe("mapping", func() {
