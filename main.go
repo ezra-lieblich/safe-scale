@@ -72,7 +72,7 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 
 func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
-		Name: "SafeScaler",
+		Name: "safe_scale",
 		Version: plugin.VersionType{
 			Major: 1,
 			Minor: 0,

@@ -2,6 +2,7 @@
   <library name="GOPATH &lt;safe_scale&gt;">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../hello" />
+      <root url="file://$PROJECT_DIR$/../bin" />
       <root url="file://$PROJECT_DIR$/../.idea" />
       <root url="file://$PROJECT_DIR$/../CLI-Hello" />
       <root url="file://$PROJECT_DIR$/../src" />
