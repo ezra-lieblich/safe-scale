@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6bc42a5a-b318-4cce-9465-dac9b8091f1f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale" afterPath="$PROJECT_DIR$/safe_scale" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main.go" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/safe_scale.go" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/safe_scale_suite_test.go" afterPath="$PROJECT_DIR$/main_suite_test.go" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/safe_scale_test.go" afterPath="$PROJECT_DIR$/main_test.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale.go" afterPath="$PROJECT_DIR$/safe_scale.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale_test.go" afterPath="$PROJECT_DIR$/safe_scale_test.go" />
     </list>
     <ignored path="safe_scale.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +31,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="safe_scale_suite_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
+      <file leaf-file-name="main_suite_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main_suite_test.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
               <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
@@ -41,66 +41,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="safe_scale_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+      <file leaf-file-name="main_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="191" column="49" selection-start-line="191" selection-start-column="49" selection-end-line="191" selection-end-column="49" />
+            <state relative-caret-position="-60">
+              <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="847">
+              <caret line="307" column="26" selection-start-line="307" selection-start-column="26" selection-end-line="307" selection-end-column="26" />
               <folding>
-                <element signature="e#14#236#0" expanded="true" />
+                <element signature="e#14#107#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="safe_scale.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/safe_scale.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-488">
-              <caret line="174" column="0" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
-              <folding>
-                <element signature="e#13#106#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="example_test.go" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/net/http/httptest/example_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server_test.go" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/net/http/httptest/server_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.go" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/net/http/httptest/server.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2100">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="recorder.go" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/net/http/httptest/recorder.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-878">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -136,8 +94,10 @@
       <list>
         <option value="$PROJECT_DIR$/play.go" />
         <option value="$PROJECT_DIR$/plugin.go" />
-        <option value="$PROJECT_DIR$/safe_scale.go" />
         <option value="$PROJECT_DIR$/safe_scale_test.go" />
+        <option value="$PROJECT_DIR$/safe_scale.go" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/main_test.go" />
       </list>
     </option>
   </component>
@@ -258,7 +218,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.safe_scale_suite_test.go">
+  <component name="RunManager" selected="Go Test.main_suite_test.go">
     <configuration default="false" name="safe_scale_suite_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
       <module name="safe_scale" />
       <working_directory value="$PROJECT_DIR$" />
@@ -273,6 +233,14 @@
       <framework value="gotest" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/safe_scale_test.go" />
+      <method />
+    </configuration>
+    <configuration default="false" name="main_suite_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="safe_scale" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/main_suite_test.go" />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -696,14 +664,16 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Go Test.safe_scale_suite_test.go" />
       <item index="1" class="java.lang.String" itemvalue="Go Test.safe_scale_test.go" />
+      <item index="2" class="java.lang.String" itemvalue="Go Test.main_suite_test.go" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Go Test.safe_scale_suite_test.go" />
-        <item index="1" class="java.lang.String" itemvalue="Go Test.safe_scale_test.go" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Go Test.main_suite_test.go" />
+        <item index="1" class="java.lang.String" itemvalue="Go Test.safe_scale_suite_test.go" />
+        <item index="2" class="java.lang.String" itemvalue="Go Test.safe_scale_test.go" />
       </list>
     </recent_temporary>
   </component>
@@ -735,44 +705,44 @@
       <workItem from="1468329404314" duration="189000" />
       <workItem from="1468331382109" duration="46000" />
       <workItem from="1468356685557" duration="3363000" />
-      <workItem from="1468415577886" duration="11148000" />
+      <workItem from="1468415577886" duration="17103000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 18m 19s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 10h 59m 49s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 20m 12s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 01m 49s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 20m 58s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 03m 40s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 21m 20s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 05m 05s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 31m 53s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 05m 39s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 32m 33s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 28s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 42m 12s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 42s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 42m 13s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 59s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 42m 25s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 11m 37s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="safe_scale_suite_test_go - 2016.07.13 at 15h 42m 40s.xml">
-      <configuration name="safe_scale_suite_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 13m 02s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57294000" />
+    <option name="totallyTimeSpent" value="63249000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -800,6 +770,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13733906" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -812,7 +783,6 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="100" y="100" width="1240" height="700" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937685" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -837,20 +807,12 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="38" column="9" selection-start-line="35" selection-start-column="8" selection-end-line="38" selection-end-column="9" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -863,22 +825,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="94" column="62" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="62" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -890,22 +850,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="94" column="62" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="62" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -917,12 +875,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -934,12 +892,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -972,29 +930,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
           <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
+    <entry file="file://$PROJECT_DIR$/main_suite_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1027,40 +983,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
           <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
+    <entry file="file://$PROJECT_DIR$/main_suite_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1071,23 +1023,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1171,25 +1121,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/go/src/net/http/httptest/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/go/src/net/http/httptest/recorder_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/net/http/httptest/recorder.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-878">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1211,7 +1145,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_suite_test.go">
+    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/net/http/httptest/recorder.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-878">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/net/http/httptest/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2100">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_suite_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
@@ -1219,22 +1177,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale_test.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="191" column="49" selection-start-line="191" selection-start-column="49" selection-end-line="191" selection-end-column="49" />
-          <folding>
-            <element signature="e#14#236#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-60">
+          <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/safe_scale.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-488">
-          <caret line="174" column="0" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
+        <state relative-caret-position="847">
+          <caret line="307" column="26" selection-start-line="307" selection-start-column="26" selection-end-line="307" selection-end-column="26" />
           <folding>
-            <element signature="e#13#106#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
