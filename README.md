@@ -25,10 +25,10 @@ The plugin requires you to be in the same directory as the app you are trying to
 cf safe-scale app_name --inst=int --trans=string --test=string --timeout=int
 
 Flags
--inst: Number of instances of the new app
--trans: endpoint to monitor if app still has pending transactions
--test: endpoint to monitor if the app is healthy
--timeout: time in seconds to monitor transactions
+inst: Number of instances of the new app
+trans: endpoint to monitor if app still has pending transactions
+test: endpoint to monitor if the app is healthy
+timeout: time in seconds to monitor transactions
 
 Note if you don’t provide an endpoint for monitoring transactions or checking health the plugin will just continue 
 regular blue-green deployment
