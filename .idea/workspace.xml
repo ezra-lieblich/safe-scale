@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_test.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main_test.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="125" column="25" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="25" />
+            <state relative-caret-position="292">
+              <caret line="298" column="41" selection-start-line="298" selection-start-column="41" selection-end-line="298" selection-end-column="41" />
               <folding>
                 <element signature="e#14#243#0" expanded="true" />
               </folding>
@@ -51,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3975">
-              <caret line="265" column="40" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="40" />
+            <state relative-caret-position="232">
+              <caret line="311" column="42" selection-start-line="311" selection-start-column="42" selection-end-line="311" selection-end-column="42" />
               <folding>
                 <element signature="e#14#107#0" expanded="true" />
               </folding>
@@ -709,17 +709,11 @@
       <workItem from="1468522338995" duration="1152000" />
       <workItem from="1468588356512" duration="111000" />
       <workItem from="1468848402796" duration="286000" />
-      <workItem from="1468867671938" duration="3215000" />
+      <workItem from="1468867671938" duration="5034000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 42s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 59s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="main_suite_test_go - 2016.07.14 at 11h 11m 37s.xml">
       <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -744,9 +738,15 @@
     <history-entry file="main_suite_test_go - 2016.07.18 at 15h 51m 16s.xml">
       <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 17h 20m 02s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 17h 28m 47s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68157000" />
+    <option name="totallyTimeSpent" value="69976000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1180,22 +1180,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_test.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="125" column="25" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="25" />
+        <state relative-caret-position="232">
+          <caret line="311" column="42" selection-start-line="311" selection-start-column="42" selection-end-line="311" selection-end-column="42" />
           <folding>
-            <element signature="e#14#243#0" expanded="true" />
+            <element signature="e#14#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
+    <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3975">
-          <caret line="265" column="40" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="40" />
+        <state relative-caret-position="292">
+          <caret line="298" column="41" selection-start-line="298" selection-start-column="41" selection-end-line="298" selection-end-column="41" />
           <folding>
-            <element signature="e#14#107#0" expanded="true" />
+            <element signature="e#14#243#0" expanded="true" />
           </folding>
         </state>
       </provider>

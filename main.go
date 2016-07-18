@@ -142,7 +142,7 @@ func (c *SafeScaler) addMap(cliConnection plugin.CliConnection, app *AppProp, ro
 	app.routes = append(app.routes, route)
 	return nil
 }
-func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, route Route) error {
+func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, route Route, orphan bool) error {
 	if _, err := cliConnection.CliCommand("unmap-route", app.name, route.domain, "--hostname", route.host);
 	err != nil {
 		return err
@@ -155,8 +155,10 @@ func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp,
 			return nil
 		}
 	}
-	return errors.New("could not find map to unmap")
-
+	if orphan == true {
+		c.deleteRoute(cliConnection, route)
+	}
+	return nil
 }
 
 func (c *SafeScaler) healthTest(client *http.Client) bool {
@@ -283,12 +285,12 @@ func (c *SafeScaler) mapping(cliConnection plugin.CliConnection) error {
 func (c *SafeScaler) unmapping(cliConnection plugin.CliConnection) error {
 	//unmap all routes from blue with exception of temp route for monitoring purposes
 	for _, val := range c.blue_routes {
-		if err := c.removeMap(cliConnection, c.blue, val); err != nil {
+		if err := c.removeMap(cliConnection, c.blue, val, false); err != nil {
 			return err
 		}
 	}
 	//remove the first route that was pushed with new app
-	if err := c.removeMap(cliConnection, c.green, c.green.routes[0]); err != nil {
+	if err := c.removeMap(cliConnection, c.green, c.green.routes[0], true); err != nil {
 		return err
 	}
 
@@ -307,13 +309,19 @@ func (c *SafeScaler) createRoute(cliConnection plugin.CliConnection) (Route, err
 	return temp_route, nil
 }
 func (c *SafeScaler) powerDown(cliConnection plugin.CliConnection) error {
-	if err := c.removeMap(cliConnection, c.blue, c.blue.routes[0]); err != nil {
+	if err := c.removeMap(cliConnection, c.blue, c.blue.routes[0], true); err != nil {
 		return err
 	}
 	if _, err := cliConnection.CliCommand("stop", c.blue.name); err != nil {
 		return err
 	}
 	c.blue.alive = false
+	return nil
+}
+func (c *SafeScaler) deleteRoute(cliConnection plugin.CliConnection, route Route) error {
+	if _, err := cliConnection.CliCommand("delete-route", route.domain, "--hostname", route.host, "-f"); err != nil {
+		return err
+	}
 	return nil
 }
 func main() {

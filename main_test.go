@@ -266,7 +266,7 @@ var _ = Describe("safescale", func() {
 		It("should unmap a route from app sucessfully", func() {
 			deleted_route := Route{host: "bar", domain: "cfapps.io"}
 			connection.CliCommandReturns([]string{"it worked"}, nil)
-			err := ExamplePlugin.removeMap(connection, result, deleted_route)
+			err := ExamplePlugin.removeMap(connection, result, deleted_route, false)
 			Expect(err).To(BeNil())
 			Expect(result.routes).To(Equal([]Route{{host: "foo", domain: "cfapps.io"}}))
 		})
@@ -278,17 +278,30 @@ var _ = Describe("safescale", func() {
 			result = app1
 			deleted_route := Route{host: "bar", domain: "cfapps.io"}
 			connection.CliCommandReturns([]string{"it worked"}, nil)
-			err := ExamplePlugin.removeMap(connection, result, deleted_route)
+			err := ExamplePlugin.removeMap(connection, result, deleted_route, false)
 			Expect(err).To(BeNil())
 			Expect(result.routes).To(Equal([]Route{}))
 		})
 		It("should fail if it can't unmap a route from app sucesfully", func() {
 			bad_route := Route{host: "bad", domain: "cfapps.io"} //route doesn't exist
 			connection.CliCommandReturns(nil, errors.New("could not unmap route"))
-			err := ExamplePlugin.removeMap(connection, result, bad_route)
+			err := ExamplePlugin.removeMap(connection, result, bad_route, false)
 			Expect(err.Error()).To(Equal("could not unmap route"))
 			Expect(result.routes).To(Equal([]Route{{host: "foo", domain:"cfapps.io"},
 				{host: "bar", domain: "cfapps.io"}}))
+		})
+		It("should delete an orphaned route", func() {
+			orphan_route := Route{host: "bar", domain: "cfapps.io"}
+			connection.CliCommandReturns([]string{"it worked"}, nil)
+			err := ExamplePlugin.deleteRoute(connection, orphan_route)
+			Expect(err).To(BeNil())
+		})
+		It("should fail if it can't delete an orphaned route", func() {
+			orphan_route := Route{host: "bad", domain: "route"}
+			connection.CliCommandReturns(nil, errors.New("It could not delete route"))
+			err := ExamplePlugin.deleteRoute(connection, orphan_route)
+			Expect(err.Error()).To(Equal("It could not delete route"))
+
 		})
 
 	})
