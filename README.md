@@ -18,21 +18,21 @@ processing. The plugin only consumes “https://“ endpoints currently
 
 # Requirements
 
-The plugin requires you to be in the same directory as the app you are trying to blue-green deploy.
+The plugin requires you to be in the same directory as the app you are trying to blue-green deploy. The endpoints should be in the form of "/endpoint_name"
 
 # Usage
 
 cf safe-scale app_name --inst=int --trans=string --test=string --timeout=int
 
 Flags
-
-"-inst":        "number of instances for new app"	
-"-trans":       "endpoint to monitor transaction"
-"-test":        "endpoint to test if new app is healthy"
-"-timeout":     "time in seconds to monitor transactions"
+-inst: Number of instances of the new app
+-trans: endpoint to monitor if app still has pending transactions
+-test: endpoint to monitor if the app is healthy
+-timeout: time in seconds to monitor transactions
 
 Note if you don’t provide an endpoint for monitoring transactions or checking health the plugin will just continue 
 regular blue-green deployment
+
 # Installation
 
 go get https://github.com/ezra-lieblich/safe-scale
