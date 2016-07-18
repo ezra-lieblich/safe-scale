@@ -24,7 +24,7 @@ The plugin requires you to be in the same directory as the app you are trying to
 
 cf safe-scale app_name --inst=int --trans=string --test=string --timeout=int
 
-Flags
+Flags                                                                                                                       
 inst: Number of instances of the new app                                                                                    
 trans: endpoint to monitor if app still has pending transactions                                                            
 test: endpoint to monitor if the app is healthy                                                                             
