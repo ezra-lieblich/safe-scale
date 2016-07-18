@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6bc42a5a-b318-4cce-9465-dac9b8091f1f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/safe_scale" afterPath="$PROJECT_DIR$/safe_scale" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/GOPATH__safe_scale_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/GOPATH__safe_scale_.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main_test.go" afterPath="$PROJECT_DIR$/main_test.go" />
     </list>
     <ignored path="safe_scale.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,9 +42,11 @@
       <file leaf-file-name="main_test.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="4">
+              <caret line="125" column="25" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="25" />
+              <folding>
+                <element signature="e#14#243#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,8 +54,8 @@
       <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="74" column="28" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+            <state relative-caret-position="3975">
+              <caret line="265" column="40" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="40" />
               <folding>
                 <element signature="e#14#107#0" expanded="true" />
               </folding>
@@ -95,8 +96,8 @@
         <option value="$PROJECT_DIR$/plugin.go" />
         <option value="$PROJECT_DIR$/safe_scale_test.go" />
         <option value="$PROJECT_DIR$/safe_scale.go" />
-        <option value="$PROJECT_DIR$/main_test.go" />
         <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/main_test.go" />
       </list>
     </option>
   </component>
@@ -138,8 +139,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -196,7 +198,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -207,10 +208,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.libraries.notification.had.been.shown" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="FullScreen" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -705,29 +706,14 @@
       <workItem from="1468331382109" duration="46000" />
       <workItem from="1468356685557" duration="3363000" />
       <workItem from="1468415577886" duration="17247000" />
-      <workItem from="1468522338995" duration="849000" />
+      <workItem from="1468522338995" duration="1152000" />
+      <workItem from="1468588356512" duration="111000" />
+      <workItem from="1468848402796" duration="286000" />
+      <workItem from="1468867671938" duration="3215000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="main_suite_test_go - 2016.07.14 at 10h 59m 49s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 01m 49s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 03m 40s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 05m 05s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 05m 39s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 28s.xml">
-      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="main_suite_test_go - 2016.07.14 at 11h 06m 42s.xml">
       <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -740,9 +726,27 @@
     <history-entry file="main_suite_test_go - 2016.07.14 at 11h 13m 02s.xml">
       <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 15h 36m 23s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 15h 38m 06s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 15h 39m 41s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 15h 42m 33s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 15h 48m 55s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="main_suite_test_go - 2016.07.18 at 15h 51m 16s.xml">
+      <configuration name="main_suite_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64242000" />
+    <option name="totallyTimeSpent" value="68157000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -764,6 +768,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.50572246" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32891566" sideWeight="0.49427754" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -773,14 +778,13 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="100" y="100" width="1240" height="700" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.49427754" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937685" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -829,7 +833,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="94" column="62" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -854,7 +860,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="94" column="62" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -934,7 +942,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
           <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -987,7 +997,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1125">
           <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,7 +1024,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1037,7 +1051,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1146,7 +1162,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-878">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1167,16 +1182,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="4">
+          <caret line="125" column="25" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="25" />
+          <folding>
+            <element signature="e#14#243#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="74" column="28" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+        <state relative-caret-position="3975">
+          <caret line="265" column="40" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="40" />
           <folding>
             <element signature="e#14#107#0" expanded="true" />
           </folding>

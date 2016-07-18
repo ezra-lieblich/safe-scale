@@ -137,6 +137,12 @@ var _ = Describe("safescale", func() {
 			ExamplePlugin.green = &AppProp{name:"", routes: []Route{}, alive: false}
 			ExamplePlugin.blue = &AppProp{routes: []Route{{domain:"cfapps.io"}}}
 		})
+		It("should fail to create new app if the blue app has no routes", func() {
+			ExamplePlugin.blue = &AppProp{routes: []Route{}}
+			err := ExamplePlugin.createNewApp(connection)
+			Expect(err.Error()).To(Equal("Can't do blue green deployment because blue app has no routes. A simple cf push will work"))
+
+		})
 		It("should push a new app sucesfully", func() {
 			connection.CliCommandReturns([]string{"yes"}, nil)
 			err := ExamplePlugin.pushApp(connection)

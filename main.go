@@ -228,6 +228,9 @@ func (c *SafeScaler) getSpace(cliConnection plugin.CliConnection) error {
 	return nil
 }
 func (c *SafeScaler) createNewApp(cliConnection plugin.CliConnection) error {
+	if len(c.blue.routes) == 0 {
+		return errors.New("Can't do blue green deployment because blue app has no routes. A simple cf push will work")
+	}
 	if err := c.pushApp(cliConnection); err != nil {
 		return err
 	}
