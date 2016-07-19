@@ -19,7 +19,6 @@ type SafeScaler struct {
 	test          string
 	inst          string
 	timeout       int
-	original_name string
 	space         string
 	client        *http.Client
 }
@@ -38,7 +37,7 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 		fmt.Println(err)
 		return
 	}
-	if err := c.getApp(cliConnection, args[1]); err != nil {
+	if err := c.getApp(cliConnection, args); err != nil {
 		fmt.Println(err)
 		return
 	}
@@ -88,7 +87,7 @@ func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 				Name: "safe-scale",
 				HelpText: "safely scales down your application using blue green deployment",
 				UsageDetails: plugin.Usage{
-					Usage: "safe-scale\n	cf safe-scale app_name [--inst] [--trans] [--test] [--timeout]",
+					Usage: "safe-scale\n	cf safe-scale app_name new_app_name [--inst] [--trans] [--test] [--timeout]",
 					Options: map[string]string{
 						"-inst":        "number of instances for new app",
 						"-trans":        "endpoint to monitor transaction",
@@ -101,9 +100,9 @@ func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 	}
 }
 
-func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, name string) error {
+func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, args []string) error {
 	//getting app properties
-	app, err := cliConnection.GetApp(name)
+	app, err := cliConnection.GetApp(args[1])
 	c.services = []string{}
 	if err != nil {
 		return err
@@ -131,7 +130,7 @@ func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, name string) err
 	}
 	c.blue = properties
 	c.blue_routes = c.blue.routes
-	c.green = &AppProp{name:"", routes: []Route{}, alive: false}
+	c.green = &AppProp{name:args[2], routes: []Route{}, alive: false}
 	return nil
 }
 
@@ -204,16 +203,18 @@ func (c *SafeScaler) monitorTransactions(client *http.Client) error {
 
 func (c *SafeScaler) getArgs(args []string) error {
 	if len(args) == 1 {
-		return errors.New("Insufficient arguments. Did not specify an app")
+		return errors.New("Insufficient arguments. Did not specify the original app")
 	}
-	c.original_name = args[1]
+	if len(args) == 2 {
+		return errors.New("Insufficient arguments. Did not specify a name for new app")
+	}
 	f := flag.NewFlagSet("f", flag.ContinueOnError)
 	inst_ptr := f.String("inst", "1", "the number of instances for new app")
 	trans_ptr := f.String("trans", "", "endpoint path to monitor transactions")
 	test_ptr := f.String("test", "", "endpoint path to test new app deployed")
 	timeout_ptr := f.Int("timeout", 120, "time in seconds before transaction monitoring times out")
 	//Do not want to parse through the command name and app name. Just focused on flags
-	f.Parse(args[2:])
+	f.Parse(args[3:])
 	c.inst = *inst_ptr
 	c.test = *test_ptr
 	c.trans = *trans_ptr
@@ -245,13 +246,11 @@ func (c *SafeScaler) createNewApp(cliConnection plugin.CliConnection) error {
 	return nil
 }
 func (c *SafeScaler) pushApp(cliConnection plugin.CliConnection) error {
-	new_name := "new-" + c.original_name
 	domain := c.blue.routes[0].domain
-	if _, err := cliConnection.CliCommand("push", new_name, "-i", c.inst, "--hostname", new_name, "-d", domain); err != nil {
+	if _, err := cliConnection.CliCommand("push", c.green.name, "-i", c.inst, "--hostname", c.green.name, "-d", domain); err != nil {
 		return err
 	}
-	c.green.name = new_name
-	c.green.routes = append(c.green.routes, Route{host: new_name, domain: domain})
+	c.green.routes = append(c.green.routes, Route{host: c.green.name, domain: domain})
 	c.green.alive = true
 	return nil
 

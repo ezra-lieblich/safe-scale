@@ -1,7 +1,6 @@
 package main
 
 import (
-	//HTTP versus HTTPS???
 	"github.com/cloudfoundry/cli/plugin/models"
 	"github.com/cloudfoundry/cli/plugin/pluginfakes"
 	. "github.com/onsi/ginkgo"
@@ -21,37 +20,39 @@ var _ = Describe("safescale", func() {
 		ExamplePlugin = &SafeScaler{}
 	})
 	Describe("get arguments", func() {
-		It("should fail when insufficient amount of arguments", func() {
+		It("should fail when insufficient the original app isn't specified", func() {
 			err := ExamplePlugin.getArgs([]string{"safe-scale"})
-			Expect(err.Error()).To(Equal("Insufficient arguments. Did not specify an app"))
+			Expect(err.Error()).To(Equal("Insufficient arguments. Did not specify the original app"))
+		})
+		It("should fail when the new app name isn't specified", func() {
+			err := ExamplePlugin.getArgs([]string{"safe-scale", "foo-app"})
+			Expect(err.Error()).To(Equal("Insufficient arguments. Did not specify a name for new app"))
 		})
 		It("should set to default values", func() {
-			err := ExamplePlugin.getArgs([]string{"safe-scale", "test-app"})
+			err := ExamplePlugin.getArgs([]string{"safe-scale", "test-app", "new-app"})
 			Expect(err).To(BeNil())
-			Expect(ExamplePlugin.original_name).To(Equal("test-app"))
 			Expect(ExamplePlugin.inst).To(Equal("1"))
 			Expect(ExamplePlugin.trans).To(Equal(""))
 			Expect(ExamplePlugin.test).To(Equal(""))
 			Expect(ExamplePlugin.timeout).To(Equal(120))
 		})
 		It("should set all flags sucessfully", func() {
-			args := []string{"safe-scale", "foo", "--inst", "4", "--test", "/test", "-trans", "/trans", "--timeout", "40"}
+			args := []string{"safe-scale", "foo", "new-app", "--inst", "4", "--test", "/test", "-trans", "/trans", "--timeout", "40"}
 			err := ExamplePlugin.getArgs(args)
 			Expect(err).To(BeNil())
-			Expect(ExamplePlugin.original_name).To(Equal("foo"))
 			Expect(ExamplePlugin.inst).To(Equal("4"))
 			Expect(ExamplePlugin.trans).To(Equal("/trans"))
 			Expect(ExamplePlugin.test).To(Equal("/test"))
 			Expect(ExamplePlugin.timeout).To(Equal(40))
 		})
 		It("should set some flags and leave others as default", func() {
-			args := []string{"safe-scale", "bar", "--trans", "/trans", "-test", "/test"}
+			args := []string{"safe-scale", "bar", "new-app", "--trans", "/trans", "-test", "/test"}
 			err := ExamplePlugin.getArgs(args)
 			Expect(err).To(BeNil())
-			Expect(ExamplePlugin.original_name).To(Equal("bar"))
 			Expect(ExamplePlugin.inst).To(Equal("1"))
 			Expect(ExamplePlugin.trans).To(Equal("/trans"))
 			Expect(ExamplePlugin.test).To(Equal("/test"))
+			Expect(ExamplePlugin.timeout).To(Equal(120))
 		})
 	})
 	Describe("app properties", func() {
@@ -61,21 +62,22 @@ var _ = Describe("safescale", func() {
 		It("app  exists", func() {
 			app := plugin_models.GetAppModel{Name: "blue-app"}
 			connection.GetAppReturns(app, nil)
-			err := ExamplePlugin.getApp(connection, "blue-app")
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "blue-app", "green-app"})
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.blue.name).To(Equal("blue-app"))
+			Expect(ExamplePlugin.green.name).To(Equal("green-app"))
 		})
 		It("app doesn't exist", func() {
 			app := plugin_models.GetAppModel{Name: "blue-app"}
 			connection.GetAppReturns(app, errors.New("The app doesn't exist"))
-			err := ExamplePlugin.getApp(connection, "blue-app")
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "blue-app"})
 			Expect(err.Error()).To(Equal("The app doesn't exist"))
 
 		})
 		It("has no routes", func() {
 			app := plugin_models.GetAppModel{}
 			connection.GetAppReturns(app, nil)
-			err := ExamplePlugin.getApp(connection, "") //name is not relevant
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "", ""}) //names are not relevant
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.blue.routes).To(Equal([]Route{}))
 		})
@@ -89,7 +91,7 @@ var _ = Describe("safescale", func() {
 			}
 			app := plugin_models.GetAppModel{Routes: route}
 			connection.GetAppReturns(app, nil)
-			err := ExamplePlugin.getApp(connection, "")
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "", ""})
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.blue.routes).To(Equal([]Route{{host: "trial", domain: "cfapps.io"}}))
 		})
@@ -107,7 +109,7 @@ var _ = Describe("safescale", func() {
 			}
 			app := plugin_models.GetAppModel{Routes: route}
 			connection.GetAppReturns(app, nil)
-			err := ExamplePlugin.getApp(connection, "")
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "", ""})
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.blue.routes).To(Equal([]Route{
 				{host: "foo", domain: "cfapps.io"}, {host: "bar", domain: "cfapps.io"}}))
@@ -115,9 +117,10 @@ var _ = Describe("safescale", func() {
 		It("has no services", func() {
 			app := plugin_models.GetAppModel{}
 			connection.GetAppReturns(app, nil)
-			err := ExamplePlugin.getApp(connection, "")
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "", ""})
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.services).To(Equal([]string{}))
+			Expect(ExamplePlugin.green.name).To(Equal(""))
 		})
 		It("has multiple services", func() {
 			services := []plugin_models.GetApp_ServiceSummary{
@@ -126,15 +129,14 @@ var _ = Describe("safescale", func() {
 			}
 			app := plugin_models.GetAppModel{Services: services}
 			connection.GetAppReturns(app, nil)
-			err := ExamplePlugin.getApp(connection, "")
+			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "", ""})
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.services).To(Equal([]string{"foo", "bar"}))
 		})
 	})
 	Describe("create new app", func() {
 		BeforeEach(func() {
-			ExamplePlugin.original_name = "test-app"
-			ExamplePlugin.green = &AppProp{name:"", routes: []Route{}, alive: false}
+			ExamplePlugin.green = &AppProp{name:"new-app", routes: []Route{}, alive: false}
 			ExamplePlugin.blue = &AppProp{routes: []Route{{domain:"cfapps.io"}}}
 		})
 		It("should fail to create new app if the blue app has no routes", func() {
@@ -147,8 +149,8 @@ var _ = Describe("safescale", func() {
 			connection.CliCommandReturns([]string{"yes"}, nil)
 			err := ExamplePlugin.pushApp(connection)
 			Expect(err).To(BeNil())
-			Expect(ExamplePlugin.green.name).To(Equal("new-test-app"))
-			Expect(ExamplePlugin.green.routes).To(Equal([]Route{{domain: "cfapps.io", host: "new-test-app"}}))
+			Expect(ExamplePlugin.green.name).To(Equal("new-app"))
+			Expect(ExamplePlugin.green.routes).To(Equal([]Route{{domain: "cfapps.io", host: "new-app"}}))
 			Expect(ExamplePlugin.green.alive).To(Equal(true))
 		})
 		It("should fail if it can't push the app", func() {
