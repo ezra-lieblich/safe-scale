@@ -22,7 +22,7 @@ The plugin requires you to be in the same directory as the app you are trying to
 
 # Usage
 
-cf safe-scale app_name --inst=int --trans=string --test=string --timeout=int
+cf safe-scale app_name new_app_name --inst=int --trans=string --test=string --timeout=int
 
 Flags                                                                                                                       
 inst: Number of instances of the new app                                                                                    
