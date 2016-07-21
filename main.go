@@ -33,6 +33,9 @@ type Route struct {
 }
 
 func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
+	if args[0] != "safe-scale" {
+		return
+	}
 	if err := c.getArgs(args); err != nil {
 		fmt.Println(err)
 		return
@@ -151,7 +154,7 @@ func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp,
 		if value.host == route.host && value.domain == route.domain {
 			new_routes := append(app.routes[:i], app.routes[i + 1:]...)
 			app.routes = new_routes
-			return nil
+			break
 		}
 	}
 	if orphan == true {
