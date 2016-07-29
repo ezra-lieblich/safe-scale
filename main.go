@@ -103,6 +103,27 @@ func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 	}
 }
 
+func (c *SafeScaler) getArgs(args []string) error {
+	if len(args) == 1 {
+		return errors.New("Insufficient arguments. Did not specify the original app")
+	}
+	if len(args) == 2 {
+		return errors.New("Insufficient arguments. Did not specify a name for new app")
+	}
+	f := flag.NewFlagSet("f", flag.ContinueOnError)
+	inst_ptr := f.String("inst", "1", "the number of instances for new app")
+	trans_ptr := f.String("trans", "", "endpoint path to monitor transactions")
+	test_ptr := f.String("test", "", "endpoint path to test new app deployed")
+	timeout_ptr := f.Int("timeout", 120, "time in seconds before transaction monitoring times out")
+	//Do not want to parse through the command name and app name. Just focused on flags
+	f.Parse(args[3:])
+	c.inst = *inst_ptr
+	c.test = *test_ptr
+	c.trans = *trans_ptr
+	c.timeout = *timeout_ptr
+	return nil
+}
+
 func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, args []string) error {
 	//getting app properties
 	app, err := cliConnection.GetApp(args[1])
@@ -137,94 +158,6 @@ func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, args []string) e
 	return nil
 }
 
-func (c *SafeScaler) addMap(cliConnection plugin.CliConnection, app *AppProp, route Route) error {
-	if _, err := cliConnection.CliCommand("map-route", app.name, route.domain, "--hostname", route.host); err != nil {
-		return err
-	}
-	app.routes = append(app.routes, route)
-	return nil
-}
-func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, route Route, orphan bool) error {
-	if _, err := cliConnection.CliCommand("unmap-route", app.name, route.domain, "--hostname", route.host);
-	err != nil {
-		return err
-	}
-	//updating app routes array
-	for i, value := range app.routes {
-		if value.host == route.host && value.domain == route.domain {
-			new_routes := append(app.routes[:i], app.routes[i + 1:]...)
-			app.routes = new_routes
-			break
-		}
-	}
-	if orphan == true {
-		c.deleteRoute(cliConnection, route)
-	}
-	return nil
-}
-
-func (c *SafeScaler) healthTest(client *http.Client) bool {
-	//no endpoint so just continue with deployment
-	if c.test == "" {
-		return true
-	}
-	endpoint := "https://" + c.green.routes[0].host + "." + c.green.routes[0].domain + c.test
-	result, err := client.Get(endpoint) //test endpoint
-	//not ok or error so test failed 300 multiple things going on
-	if result.StatusCode != 200 || err != nil {
-		return false
-	}
-	return true
-
-}
-func (c *SafeScaler) monitorTransactions(client *http.Client) error {
-	//no endpoint so just regular blue green deployment
-	if c.trans == "" {
-		return nil
-	}
-	trans_endpoint := "https://" + c.blue.routes[0].host + "." + c.blue.routes[0].domain + c.trans
-	base := time.Now() //baseline time to measure against
-	current := time.Since(base).Seconds()
-	//loop to continuously monitor transactions until it times out
-	for current < float64(c.timeout) {
-		result, err := client.Get(trans_endpoint)
-		if err != nil {
-			return err
-		}
-		//no content so there are no more transactions have parameter that has utc time
-		if result.StatusCode == 204 {
-			return nil
-		}
-		if result.StatusCode != 200 {
-			return errors.New("Status code is not okay. Check to make sure the app is healthy")
-		}
-		time.Sleep(3 * time.Second)
-		current = time.Since(base).Seconds()
-	}
-	return errors.New("The request timed out. Can not safely shut down the old app.")
-}
-
-func (c *SafeScaler) getArgs(args []string) error {
-	if len(args) == 1 {
-		return errors.New("Insufficient arguments. Did not specify the original app")
-	}
-	if len(args) == 2 {
-		return errors.New("Insufficient arguments. Did not specify a name for new app")
-	}
-	f := flag.NewFlagSet("f", flag.ContinueOnError)
-	inst_ptr := f.String("inst", "1", "the number of instances for new app")
-	trans_ptr := f.String("trans", "", "endpoint path to monitor transactions")
-	test_ptr := f.String("test", "", "endpoint path to test new app deployed")
-	timeout_ptr := f.Int("timeout", 120, "time in seconds before transaction monitoring times out")
-	//Do not want to parse through the command name and app name. Just focused on flags
-	f.Parse(args[3:])
-	c.inst = *inst_ptr
-	c.test = *test_ptr
-	c.trans = *trans_ptr
-	c.timeout = *timeout_ptr
-	return nil
-}
-
 func (c *SafeScaler) getSpace(cliConnection plugin.CliConnection) error {
 	space, err := cliConnection.GetCurrentSpace()
 	if err != nil {
@@ -233,6 +166,7 @@ func (c *SafeScaler) getSpace(cliConnection plugin.CliConnection) error {
 	c.space = space.Name
 	return nil
 }
+
 func (c *SafeScaler) createNewApp(cliConnection plugin.CliConnection) error {
 	if len(c.blue.routes) == 0 {
 		return errors.New("Can't do blue green deployment because blue app has no routes. A simple cf push will work")
@@ -248,6 +182,7 @@ func (c *SafeScaler) createNewApp(cliConnection plugin.CliConnection) error {
 	}
 	return nil
 }
+
 func (c *SafeScaler) pushApp(cliConnection plugin.CliConnection) error {
 	domain := c.blue.routes[0].domain
 	if _, err := cliConnection.CliCommand("push", c.green.name, "-i", c.inst, "--hostname", c.green.name, "-d", domain); err != nil {
@@ -258,11 +193,27 @@ func (c *SafeScaler) pushApp(cliConnection plugin.CliConnection) error {
 	return nil
 
 }
+
 func (c *SafeScaler) bindService(cliConnection plugin.CliConnection, val string) error {
 	if _, err := cliConnection.CliCommand("bind-service", c.green.name, val); err != nil {
 		return err
 	}
 	return nil
+}
+
+func (c *SafeScaler) healthTest(client *http.Client) bool {
+	//no endpoint so just continue with deployment
+	if c.test == "" {
+		return true
+	}
+	fmt.Println("Testing the health of the new app")
+	endpoint := "https://" + c.green.routes[0].host + "." + c.green.routes[0].domain + c.test
+	result, err := client.Get(endpoint) //test endpoint
+	//not ok or error so test failed 300 multiple things going on
+	if result.StatusCode != 200 || err != nil {
+		return false
+	}
+	return true
 }
 
 func (c *SafeScaler) mapping(cliConnection plugin.CliConnection) error {
@@ -284,6 +235,14 @@ func (c *SafeScaler) mapping(cliConnection plugin.CliConnection) error {
 	return nil
 }
 
+func (c *SafeScaler) addMap(cliConnection plugin.CliConnection, app *AppProp, route Route) error {
+	if _, err := cliConnection.CliCommand("map-route", app.name, route.domain, "--hostname", route.host); err != nil {
+		return err
+	}
+	app.routes = append(app.routes, route)
+	return nil
+}
+
 func (c *SafeScaler) unmapping(cliConnection plugin.CliConnection) error {
 	//unmap all routes from blue with exception of temp route for monitoring purposes
 	for _, val := range c.blue_routes {
@@ -297,6 +256,54 @@ func (c *SafeScaler) unmapping(cliConnection plugin.CliConnection) error {
 	}
 
 	return nil
+}
+
+func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, route Route, orphan bool) error {
+	if _, err := cliConnection.CliCommand("unmap-route", app.name, route.domain, "--hostname", route.host);
+	err != nil {
+		return err
+	}
+	//updating app routes array
+	for i, value := range app.routes {
+		if value.host == route.host && value.domain == route.domain {
+			new_routes := append(app.routes[:i], app.routes[i + 1:]...)
+			app.routes = new_routes
+			break
+		}
+	}
+	if orphan == true {
+		c.deleteRoute(cliConnection, route)
+	}
+	return nil
+}
+
+func (c *SafeScaler) monitorTransactions(client *http.Client) error {
+	//no endpoint so just regular blue green deployment
+	if c.trans == "" {
+		return nil
+	}
+	fmt.Println("Monitoring transactions...")
+	trans_endpoint := "https://" + c.blue.routes[0].host + "." + c.blue.routes[0].domain + c.trans
+	base := time.Now() //baseline time to measure against
+	current := time.Since(base).Seconds()
+	//loop to continuously monitor transactions until it times out
+	for current < float64(c.timeout) {
+		result, err := client.Get(trans_endpoint)
+		if err != nil {
+			return err
+		}
+		//no content so there are no more transactions have parameter that has utc time
+		if result.StatusCode == 204 {
+			fmt.Println("No more pending transactions")
+			return nil
+		}
+		if result.StatusCode != 200 {
+			return errors.New("Status code is not okay. Check to make sure the app is healthy")
+		}
+		time.Sleep(3 * time.Second)
+		current = time.Since(base).Seconds()
+	}
+	return errors.New("The request timed out. Can not safely shut down the old app.")
 }
 
 func (c *SafeScaler) createRoute(cliConnection plugin.CliConnection) (Route, error) {
