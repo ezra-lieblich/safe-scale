@@ -7,20 +7,21 @@ import (
 	"time"
 	"flag"
 	"errors"
+	"strconv"
 )
 
 type SafeScaler struct {
-	blue          *AppProp
-	green         *AppProp
-	green_routes  []Route
-	blue_routes   []Route
-	services      []string
-	trans         string
-	test          string
-	inst          string
-	timeout       int
-	space         string
-	client        *http.Client
+	blue         *AppProp
+	green        *AppProp
+	green_routes []Route
+	blue_routes  []Route
+	services     []string
+	trans        string
+	test         string
+	inst         string
+	timeout      int
+	space        string
+	client       *http.Client
 }
 type AppProp struct {
 	name   string
@@ -50,7 +51,7 @@ func (c *SafeScaler) Run(cliConnection plugin.CliConnection, args []string) {
 	}
 	c.client = http.DefaultClient //client for endpoint monitoring
 	if healthy := c.healthTest(c.client); !healthy {
-		fmt.Println("new app is not healthy. Can not continue blue-green deployment. Routes from old app will not be transferred to new app")
+		fmt.Println("ERROR. new app is not healthy. Can not continue blue-green deployment. Routes from old app will not be transferred to new app\n")
 		return
 	}
 	if err := c.mapping(cliConnection); err != nil {
@@ -88,7 +89,7 @@ func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 		Commands: []plugin.Command{
 			{
 				Name: "safe-scale",
-				HelpText: "safely scales down your application using blue green deployment",
+				HelpText: "Safely scales down your application using blue green deployment",
 				UsageDetails: plugin.Usage{
 					Usage: "safe-scale\n	cf safe-scale app_name new_app_name [--inst] [--trans] [--test] [--timeout]",
 					Options: map[string]string{
@@ -105,11 +106,12 @@ func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 
 func (c *SafeScaler) getArgs(args []string) error {
 	if len(args) == 1 {
-		return errors.New("Insufficient arguments. Did not specify the original app")
+		return errors.New("ERROR. Insufficient arguments. Did not specify the original app\n")
 	}
 	if len(args) == 2 {
-		return errors.New("Insufficient arguments. Did not specify a name for new app")
+		return errors.New("ERROR. Insufficient arguments. Did not specify a name for new app\n")
 	}
+	//creating flags and setting their default values
 	f := flag.NewFlagSet("f", flag.ContinueOnError)
 	inst_ptr := f.String("inst", "1", "the number of instances for new app")
 	trans_ptr := f.String("trans", "", "endpoint path to monitor transactions")
@@ -129,7 +131,7 @@ func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, args []string) e
 	app, err := cliConnection.GetApp(args[1])
 	c.services = []string{}
 	if err != nil {
-		return err
+		return errors.New("ERROR. Could not access " + args[1] + " in Cloud Foundry\n")
 	}
 	properties := &AppProp{
 		name:        "",
@@ -161,7 +163,7 @@ func (c *SafeScaler) getApp(cliConnection plugin.CliConnection, args []string) e
 func (c *SafeScaler) getSpace(cliConnection plugin.CliConnection) error {
 	space, err := cliConnection.GetCurrentSpace()
 	if err != nil {
-		return err
+		return errors.New("ERROR. Could not find space in Cloud Foundry\n")
 	}
 	c.space = space.Name
 	return nil
@@ -169,7 +171,7 @@ func (c *SafeScaler) getSpace(cliConnection plugin.CliConnection) error {
 
 func (c *SafeScaler) createNewApp(cliConnection plugin.CliConnection) error {
 	if len(c.blue.routes) == 0 {
-		return errors.New("Can't do blue green deployment because blue app has no routes. A simple cf push will work")
+		return errors.New("ERROR. Can't do blue green deployment because " + c.blue.name + " has no routes\n")
 	}
 	if err := c.pushApp(cliConnection); err != nil {
 		return err
@@ -186,7 +188,7 @@ func (c *SafeScaler) createNewApp(cliConnection plugin.CliConnection) error {
 func (c *SafeScaler) pushApp(cliConnection plugin.CliConnection) error {
 	domain := c.blue.routes[0].domain
 	if _, err := cliConnection.CliCommand("push", c.green.name, "-i", c.inst, "--hostname", c.green.name, "-d", domain); err != nil {
-		return err
+		return errors.New("ERROR. Unable to push " + c.green.name + " to Cloud Foundry\n")
 	}
 	c.green.routes = append(c.green.routes, Route{host: c.green.name, domain: domain})
 	c.green.alive = true
@@ -196,7 +198,7 @@ func (c *SafeScaler) pushApp(cliConnection plugin.CliConnection) error {
 
 func (c *SafeScaler) bindService(cliConnection plugin.CliConnection, val string) error {
 	if _, err := cliConnection.CliCommand("bind-service", c.green.name, val); err != nil {
-		return err
+		return errors.New("ERROR. Could not bind " + val + " service to " + c.green.name + "\n")
 	}
 	return nil
 }
@@ -235,9 +237,21 @@ func (c *SafeScaler) mapping(cliConnection plugin.CliConnection) error {
 	return nil
 }
 
+func (c *SafeScaler) createRoute(cliConnection plugin.CliConnection) (Route, error) {
+	temp_route := Route{
+		domain: c.blue.routes[0].domain,
+		host: "temp-" + c.blue.routes[0].host,
+	}
+	if _, err := cliConnection.CliCommand("create-route", c.space, temp_route.domain, "--hostname", temp_route.host);
+	err != nil {
+		return temp_route, errors.New("ERROR. Could not create a temporary route " + temp_route.domain + "." + temp_route.host + "\n")
+	}
+	return temp_route, nil
+}
+
 func (c *SafeScaler) addMap(cliConnection plugin.CliConnection, app *AppProp, route Route) error {
 	if _, err := cliConnection.CliCommand("map-route", app.name, route.domain, "--hostname", route.host); err != nil {
-		return err
+		return errors.New("ERROR. Could not map " + route.domain + "." + route.host + " route to " + app.name + "\n")
 	}
 	app.routes = append(app.routes, route)
 	return nil
@@ -261,7 +275,7 @@ func (c *SafeScaler) unmapping(cliConnection plugin.CliConnection) error {
 func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp, route Route, orphan bool) error {
 	if _, err := cliConnection.CliCommand("unmap-route", app.name, route.domain, "--hostname", route.host);
 	err != nil {
-		return err
+		return errors.New("ERROR. Could not unmap " + route.domain + "." + route.host + " route from " + app.name + "\n")
 	}
 	//updating app routes array
 	for i, value := range app.routes {
@@ -272,7 +286,16 @@ func (c *SafeScaler) removeMap(cliConnection plugin.CliConnection, app *AppProp,
 		}
 	}
 	if orphan == true {
-		c.deleteRoute(cliConnection, route)
+		if err := c.deleteRoute(cliConnection, route); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (c *SafeScaler) deleteRoute(cliConnection plugin.CliConnection, route Route) error {
+	if _, err := cliConnection.CliCommand("delete-route", route.domain, "--hostname", route.host, "-f"); err != nil {
+		return errors.New("ERROR. Could not delete " + route.domain + "." + route.host + " route from space\n")
 	}
 	return nil
 }
@@ -282,7 +305,7 @@ func (c *SafeScaler) monitorTransactions(client *http.Client) error {
 	if c.trans == "" {
 		return nil
 	}
-	fmt.Println("Monitoring transactions...")
+	fmt.Println("Checking trans endpoint...")
 	trans_endpoint := "https://" + c.blue.routes[0].host + "." + c.blue.routes[0].domain + c.trans
 	base := time.Now() //baseline time to measure against
 	current := time.Since(base).Seconds()
@@ -298,41 +321,25 @@ func (c *SafeScaler) monitorTransactions(client *http.Client) error {
 			return nil
 		}
 		if result.StatusCode != 200 {
-			return errors.New("Status code is not okay. Check to make sure the app is healthy")
+			return errors.New("ERROR. Status code " + strconv.Itoa(result.StatusCode) + ". " + trans_endpoint + " endpoint is not okay. Check to make sure " + c.blue.name + " is healthy\n")
 		}
 		time.Sleep(3 * time.Second)
 		current = time.Since(base).Seconds()
 	}
-	return errors.New("The request timed out. Can not safely shut down the old app.")
+	return errors.New("ERROR. The request timed out. " + trans_endpoint + " endpoint failed to provide HTTP Status Code 204. Can't safely shut down " + c.blue.name + "\n")
 }
 
-func (c *SafeScaler) createRoute(cliConnection plugin.CliConnection) (Route, error) {
-	temp_route := Route{
-		domain: c.blue.routes[0].domain,
-		host: "temp" + c.blue.routes[0].host,
-	}
-	if _, err := cliConnection.CliCommand("create-route", c.space, temp_route.domain, "--hostname", temp_route.host);
-	err != nil {
-		return temp_route, err
-	}
-	return temp_route, nil
-}
 func (c *SafeScaler) powerDown(cliConnection plugin.CliConnection) error {
 	if err := c.removeMap(cliConnection, c.blue, c.blue.routes[0], true); err != nil {
 		return err
 	}
 	if _, err := cliConnection.CliCommand("stop", c.blue.name); err != nil {
-		return err
+		return errors.New("ERROR. Failed to stop " + c.blue.name + " from running\n")
 	}
 	c.blue.alive = false
 	return nil
 }
-func (c *SafeScaler) deleteRoute(cliConnection plugin.CliConnection, route Route) error {
-	if _, err := cliConnection.CliCommand("delete-route", route.domain, "--hostname", route.host, "-f"); err != nil {
-		return err
-	}
-	return nil
-}
+
 func main() {
 	plugin.Start(new(SafeScaler))
 }
