@@ -14,11 +14,12 @@ The plugin makes assumptions about the endpoints provided by the user. Since the
 determine the state of the endpoint, the endpoints must use these status codes in order for the plugin to read it 
 properly. For the test endpoint, it must return status code 200 if the app is healthy. For the transaction endpoint, 
 it must return status code 204 (no content) if the app has no more transactions and 200 if there are still transactions 
-processing. The plugin only consumes “https://“ endpoints currently
+processing. The plugin only consumes “https://“ endpoints currently.
 
 # Requirements
 
-The plugin requires you to be in the same directory as the app you are trying to blue-green deploy. The endpoints should be in the form of "/endpoint_name"
+The plugin requires you to be in the same directory as the app you are trying to blue-green deploy. The endpoints should be in the form of "/endpoint_name". 
+Note- The endpoint test you provide needs to be monitoring the transactions of the entire app not the single instance of the app the plugin accesses.
 
 # Usage
 
