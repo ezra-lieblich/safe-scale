@@ -91,10 +91,10 @@ func (c *SafeScaler) GetMetadata() plugin.PluginMetadata {
 				Name: "safe-scale",
 				HelpText: "Safely scales down your application using blue green deployment",
 				UsageDetails: plugin.Usage{
-					Usage: "safe-scale\n	cf safe-scale app_name new_app_name [--inst] [--trans] [--test] [--timeout]",
+					Usage: "safe-scale\n	cf safe-scale app_name new_app_name [--i] [--trans] [--test] [--timeout]",
 					Options: map[string]string{
-						"-inst":        "number of instances for new app",
-						"-trans":        "endpoint to monitor transaction",
+						"--i":        "number of instances for new app",
+						"-trans":        "endpoint to monitor transactions",
 						"-test":        "endpoint to test if new app is healthy",
 						"-timeout":        "time in seconds to monitor transactions",
 					},
@@ -113,7 +113,7 @@ func (c *SafeScaler) getArgs(args []string) error {
 	}
 	//creating flags and setting their default values
 	f := flag.NewFlagSet("f", flag.ContinueOnError)
-	inst_ptr := f.String("inst", "1", "the number of instances for new app")
+	inst_ptr := f.String("i", "1", "the number of instances for new app")
 	trans_ptr := f.String("trans", "", "endpoint path to monitor transactions")
 	test_ptr := f.String("test", "", "endpoint path to test new app deployed")
 	timeout_ptr := f.Int("timeout", 120, "time in seconds before transaction monitoring times out")

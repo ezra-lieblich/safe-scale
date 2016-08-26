@@ -37,7 +37,7 @@ var _ = Describe("safescale", func() {
 			Expect(ExamplePlugin.timeout).To(Equal(120))
 		})
 		It("should set all flags sucessfully", func() {
-			args := []string{"safe-scale", "foo", "new-app", "--inst", "4", "--test", "/test", "-trans", "/trans", "--timeout", "40"}
+			args := []string{"safe-scale", "foo", "new-app", "--i", "4", "--test", "/test", "-trans", "/trans", "--timeout", "40"}
 			err := ExamplePlugin.getArgs(args)
 			Expect(err).To(BeNil())
 			Expect(ExamplePlugin.inst).To(Equal("4"))
@@ -59,7 +59,7 @@ var _ = Describe("safescale", func() {
 		BeforeEach(func() {
 			ExamplePlugin.blue = &AppProp{name:"", routes: []Route{}, alive: false}
 		})
-		It("app  exists", func() {
+		It("app exists", func() {
 			app := plugin_models.GetAppModel{Name: "blue-app"}
 			connection.GetAppReturns(app, nil)
 			err := ExamplePlugin.getApp(connection, []string{"safe-scale", "blue-app", "green-app"})
